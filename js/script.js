@@ -34,12 +34,37 @@ const display = new Display(document.getElementById('display'));
 document.querySelectorAll('button').forEach(button => {
     button.addEventListener('click', () => {
         const value = button.textContent;
+
         if (value === 'C') {
             display.clear();
         } else if (value === '=') {
             try {
-                display.update(eval(display.displayElement.value));
-            } catch {
+                // A bemenet olvasása a kijelzőről
+                const expression = display.displayElement.value;
+                const operands = expression.split(/[\+\-\*\/]/); // Operátorok alapján darabolás
+                const operator = expression.match(/[\+\-\*\/]/)[0]; // Az első operátor kiválasztása
+
+                const num1 = parseFloat(operands[0]);
+                const num2 = parseFloat(operands[1]);
+
+                let result;
+                // A művelet kiválasztása és a Calculator használata
+                switch (operator) {
+                    case '+':
+                        result = calculator.add(num1, num2);
+                        break;
+                    case '-':
+                        result = calculator.subtract(num1, num2);
+                        break;
+                    case '*':
+                        result = calculator.multiply(num1, num2);
+                        break;
+                    case '/':
+                        result = calculator.divide(num1, num2);
+                        break;
+                }
+                display.update(result);
+            } catch (e) {
                 display.update('Error');
             }
         } else {
