@@ -13,3 +13,17 @@ class Calculator {
         return a / b;
     }
 }
+
+class Display {
+    constructor(displayElement) {
+        this.displayElement = displayElement;
+    }
+
+    update(value) {
+        this.displayElement.value = value;
+    }
+
+    clear() {
+        this.displayElement.value = '';
+    }
+}
